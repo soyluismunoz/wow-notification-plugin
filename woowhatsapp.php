@@ -5,15 +5,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /*
- * Plugin Name: WooWhatsApp
- * Plugin URI: https://github.com/azishapidin/woo-whatsapp
- * Description: WordPress Plugin for Add WhatsApp button in every Single Product Page.
- * Version: 1.3.2
- * Author: Azis Hapidin
- * Author URI: https://azishapidin.com/
+ * Plugin Name: Woo order WhatsApp
+ * Plugin URI: https://github.com/soyluismunoz
+ * Description: WordPress plugin to receive notifications of orders by whatsapp.
+ * Version: 1.0
+ * Author: Luis Munoz
+ * Author URI: https://github.com/soyluismunoz 
  * License: GPLv2
  */
-
+ require_once __DIR__ . '/includes/config.php';
 // Start plugin activator.
 function wooWhatsAppActicatePlugin()
 {
@@ -42,3 +42,20 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
    add_action('woocommerce_after_add_to_cart_button', 'wooWhatsAppButtonAfterAddToCart');
 }
 // Add WA Button after add to cart button end
+
+// Send whatsapp if there are new orders
+if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_option('active_plugins')))) {
+	add_action( 'woocommerce_order_status_processing', 'sendWhatsapp');
+}
+function sendWhatsapp( $order_id ) {
+    global $woocommerce;
+    $order = new WC_Order( $order_id );
+	$vendorId = get_post_meta( $order_id, '_dokan_vendor_id');
+	$vendorId = (int) $vendorId[0]; 
+	$vendorPhone = get_user_meta ( $vendorId, 'dokan_profile_settings');
+	$message = get_option('woo_wa_message');
+	
+	$msg = "*" . $order->get_billing_first_name(). " " . $order->get_billing_last_name() ."* " .$message. " *" . $order_id . "*";
+	$phoneTo = $vendorPhone[0]['phone'];
+	$result = SendMessageCurl($phoneTo, $msg);
+}

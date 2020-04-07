@@ -3,10 +3,10 @@
 /**
  * WooWhatsApp main class.
  *
- * @package    WooWhatsApp
- * @author     Azis Hapidin <azishapidin@gmail.com>
- * @link       https://wordpress.org/plugins/woowhatsapp/
- * @link       https://azishapidin.com/
+ * @package   WoW Notifaction
+ * @author    Luis Munoz
+ * @link      https://github.com/soyluismunoz
+ * @link      https://github.com/soyluismunoz
  */
 class WooWhatsApp
 {
@@ -22,6 +22,9 @@ class WooWhatsApp
         'button_id' => 'whatsapp_button',
         'button_css' => '',
         'button_show_desktop' => 'yes',
+		'WB_TOKEN' => 'Your token of waboxapp',
+		'WB_FROM' => 'your acount phone number',
+		'MESSAGE' => 'Tienes un nuevo pedido',
     ];
 
     /**

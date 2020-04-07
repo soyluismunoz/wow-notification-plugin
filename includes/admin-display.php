@@ -58,16 +58,32 @@ if (count($_POST) > 0) {
             $errorMessage = $_POST['woo_wa_button_show_desktop'] . ' value not valid.';
         }
     }
+    if (isset($_POST['woo_wa_wb_token']) && is_null($errorMessage)) {
+        $wooWhatsAppObject->setOption('woo_wa_wb_token', sanitize_text_field($_POST['woo_wa_wb_token']));
+        $success = true;
+    }
+    if (isset($_POST['woo_wa_wb_from']) && is_null($errorMessage)) {
+        $wooWhatsAppObject->setOption('woo_wa_wb_from', sanitize_text_field($_POST['woo_wa_wb_from']));
+        $success = true;
+    }
+	if (isset($_POST['woo_wa_message']) && is_null($errorMessage)) {
+        $wooWhatsAppObject->setOption('woo_wa_message', sanitize_text_field($_POST['woo_wa_message']));
+        $success = true;
+    }
 }
 ?>
 
 <div class="wrap">
-    <h1>WooCommerce Chat to WhatsApp Setting</h1>
+    <h1>
+		<?php echo "woocomerce orders by whatsapp";?>
+	</h1>
 
     <!-- Tab navigation start -->
     <h2 class="nav-tab-wrapper">
         <a href="?page=woo_whatsapp_admin&tab=general" class="nav-tab <?php echo $active_tab == 'general' ? 'nav-tab-active' : ''; ?>">General</a>
+        <a href="?page=woo_whatsapp_admin&tab=styles" class="nav-tab <?php echo $active_tab == 'styles' ? 'nav-tab-active' : ''; ?>">styles Settings</a>
         <a href="?page=woo_whatsapp_admin&tab=advance" class="nav-tab <?php echo $active_tab == 'advance' ? 'nav-tab-active' : ''; ?>">Advance Settings</a>
+        <a href="?page=woo_whatsapp_admin&tab=message" class="nav-tab <?php echo $active_tab == 'message' ? 'nav-tab-active' : ''; ?>">Message Settings</a>
     </h2>
     <!-- Tab navigation end -->
 
@@ -95,13 +111,13 @@ if (count($_POST) > 0) {
         <?php if ($active_tab == 'general') { ?>
         <!-- General form menu -->
         <table class="form-table">
-            <tr valign="top">
+            <!--<tr valign="top">
             <th scope="row">WhatsApp Phone Number</th>
             <td>
                 <input style="width: 500px;" type="text" name="woo_wa_phone_number" value="<?php echo esc_attr($wooWhatsAppObject->getOption('woo_wa_phone_number')); ?>" placeholder="Example: 62888XXXXXXX" />
                 <br><small>Don't forget to add country code prefix, like 62 for Indonesia.</small>
             </td>
-            </tr>
+            </tr>-->
 
             <tr valign="top">
             <th scope="row">Button Text</th>
@@ -120,12 +136,10 @@ if (count($_POST) > 0) {
                 Example: <em><?php echo esc_attr($wooWhatsAppObject->default['content']); ?></em> will be parsed to <strong>Hello, I want to buy this product https://example.com/store/product/cool-thsirt</strong>
             </td>
             </tr>
-            
-            </tr>
         </table>
         <!-- General form menu -->
-        <?php } elseif ($active_tab == 'advance') { ?>
-        <!-- Advance form menu -->
+        <?php } elseif ($active_tab == 'styles') { ?>
+        <!-- styles form menu -->
         <!-- General form menu -->
         <h3>WhatsApp Button Setting</h3>
         <table class="form-table">
@@ -157,9 +171,41 @@ if (count($_POST) > 0) {
             </td>
             </tr>
             
+        </table>
+        <!-- styles form menu -->
+        <?php } elseif ($active_tab == 'advance') { ?>
+        <!-- General form menu -->
+        <h3>Setting of values of waboxapp</h3>
+        <table class="form-table">
+            <tr valign="top">
+            <th scope="row">acount phone number</th>
+            <td>
+                <input style="width: 500px;" type="text" name="woo_wa_wb_from" value="<?php echo esc_attr($wooWhatsAppObject->getOption('woo_wa_wb_from')); ?>" placeholder="Example: 62888XXXXXXX" />
+                <br><small>add the phone number you use to set up your waboxapp account</small>
+            </td>
+            </tr>
+
+            <tr valign="top">
+            <th scope="row"> Api Token</th>
+            <td>
+                <input style="width: 500px;" type="text" name="woo_wa_wb_token" value="<?php echo esc_attr($wooWhatsAppObject->getOption('woo_wa_wb_token')); ?>" />
+                <br><small>add your api Token</small>
+            </td>
             </tr>
         </table>
-        <!-- Advance form menu -->
+        <?php } elseif ($active_tab == 'message') { ?>
+        <!-- General form menu -->
+        <h3>Setting of Messages</h3>
+        <table class="form-table">
+            <tr valign="top">
+            <th scope="row">Message by owner</th>
+            <td>
+				<textarea  style="width: 500px;" rows="8" name="woo_wa_message" placeholder="Example: margin: 0px 2px; border-radius: 5px;"><?php echo $wooWhatsAppObject->getOption('woo_wa_message'); ?></textarea>
+                
+                <br><small>Message by owner Product</small>
+            </td>
+            </tr>
+        </table>
         <?php } ?>
         <?php submit_button(); ?>
     </form>
