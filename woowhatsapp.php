@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /*
  * Plugin Name: Woo order WhatsApp
- * Plugin URI: https://github.com/soyluismunoz
+ * Plugin URI: https://github.com/soyluismunoz/wow-notification-plugin
  * Description: WordPress plugin to receive notifications of orders by whatsapp.
  * Version: 1.0
  * Author: Luis Munoz

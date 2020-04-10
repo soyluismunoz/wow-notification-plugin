@@ -5,7 +5,7 @@
  *
  * @package   WoW Notifaction
  * @author    Luis Munoz
- * @link      https://github.com/soyluismunoz
+ * @link      https://github.com/soyluismunoz/wow-notification-plugin
  * @link      https://github.com/soyluismunoz
  */
 class WooWhatsApp
