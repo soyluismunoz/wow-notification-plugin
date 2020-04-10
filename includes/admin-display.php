@@ -58,16 +58,20 @@ if (count($_POST) > 0) {
             $errorMessage = $_POST['woo_wa_button_show_desktop'] . ' value not valid.';
         }
     }
-    if (isset($_POST['woo_wa_wb_token']) && is_null($errorMessage)) {
-        $wooWhatsAppObject->setOption('woo_wa_wb_token', sanitize_text_field($_POST['woo_wa_wb_token']));
+    if (isset($_POST['woo_wa_sid']) && is_null($errorMessage)) {
+        $wooWhatsAppObject->setOption('woo_wa_sid', sanitize_text_field($_POST['woo_wa_sid']));
         $success = true;
     }
-    if (isset($_POST['woo_wa_wb_from']) && is_null($errorMessage)) {
-        $wooWhatsAppObject->setOption('woo_wa_wb_from', sanitize_text_field($_POST['woo_wa_wb_from']));
+    if (isset($_POST['woo_wa_auth_token']) && is_null($errorMessage)) {
+        $wooWhatsAppObject->setOption('woo_wa_auth_token', sanitize_text_field($_POST['woo_wa_auth_token']));
         $success = true;
     }
-	if (isset($_POST['woo_wa_message']) && is_null($errorMessage)) {
-        $wooWhatsAppObject->setOption('woo_wa_message', sanitize_text_field($_POST['woo_wa_message']));
+	if (isset($_POST['woo_wa_owner_message']) && is_null($errorMessage)) {
+        $wooWhatsAppObject->setOption('woo_wa_owner_message', sanitize_text_field($_POST['woo_wa_owner_message']));
+        $success = true;
+    }
+	if (isset($_POST['woo_wa_customer_message']) && is_null($errorMessage)) {
+        $wooWhatsAppObject->setOption('woo_wa_customer_message', sanitize_text_field($_POST['woo_wa_customer_message']));
         $success = true;
     }
 }
@@ -111,14 +115,12 @@ if (count($_POST) > 0) {
         <?php if ($active_tab == 'general') { ?>
         <!-- General form menu -->
         <table class="form-table">
-            <!--<tr valign="top">
-            <th scope="row">WhatsApp Phone Number</th>
+			<tr valign="top">
+            <th scope="row">Phone Number</th>
             <td>
-                <input style="width: 500px;" type="text" name="woo_wa_phone_number" value="<?php echo esc_attr($wooWhatsAppObject->getOption('woo_wa_phone_number')); ?>" placeholder="Example: 62888XXXXXXX" />
-                <br><small>Don't forget to add country code prefix, like 62 for Indonesia.</small>
+                <input style="width: 500px;" type="text" name="woo_wa_phone_number" value="<?php echo esc_attr($wooWhatsAppObject->getOption('woo_wa_phone_number')); ?>" placeholder="Example: +162888XXXXXXX" />
             </td>
-            </tr>-->
-
+            </tr>
             <tr valign="top">
             <th scope="row">Button Text</th>
             <td><input style="width: 500px;" type="text" name="woo_wa_button" value="<?php echo esc_attr($wooWhatsAppObject->getOption('woo_wa_button')); ?>" /></td>
@@ -175,21 +177,27 @@ if (count($_POST) > 0) {
         <!-- styles form menu -->
         <?php } elseif ($active_tab == 'advance') { ?>
         <!-- General form menu -->
-        <h3>Setting of values of waboxapp</h3>
+        <h3>Setting of values of TWILIO</h3>
         <table class="form-table">
             <tr valign="top">
-            <th scope="row">acount phone number</th>
+            <th scope="row">Twilio Account SID</th>
             <td>
-                <input style="width: 500px;" type="text" name="woo_wa_wb_from" value="<?php echo esc_attr($wooWhatsAppObject->getOption('woo_wa_wb_from')); ?>" placeholder="Example: 62888XXXXXXX" />
-                <br><small>add the phone number you use to set up your waboxapp account</small>
+                <input style="width: 500px;" type="text" name="woo_wa_sid" value="<?php echo esc_attr($wooWhatsAppObject->getOption('woo_wa_sid')); ?>" placeholder="Example: 62888XXXXXXX" />
+                <br><small>add account SID</small>
             </td>
             </tr>
 
             <tr valign="top">
-            <th scope="row"> Api Token</th>
+            <th scope="row"> Twilio Auth Token</th>
             <td>
-                <input style="width: 500px;" type="text" name="woo_wa_wb_token" value="<?php echo esc_attr($wooWhatsAppObject->getOption('woo_wa_wb_token')); ?>" />
-                <br><small>add your api Token</small>
+                <input style="width: 500px;" type="text" name="woo_wa_auth_token" value="<?php echo esc_attr($wooWhatsAppObject->getOption('woo_wa_auth_token')); ?>" />
+                <br><small>add your Auth Token</small>
+            </td>
+            </tr>
+			<tr valign="top">
+            <th scope="row">Twilio Phone Number</th>
+            <td>
+                <input style="width: 500px;" type="text" name="woo_wa_twilio_phone_number" value="<?php echo esc_attr($wooWhatsAppObject->getOption('woo_wa_twilio_phone_number')); ?>" placeholder="Example: +162888XXXXXXX" />
             </td>
             </tr>
         </table>
@@ -200,9 +208,17 @@ if (count($_POST) > 0) {
             <tr valign="top">
             <th scope="row">Message by owner</th>
             <td>
-				<textarea  style="width: 500px;" rows="8" name="woo_wa_message" placeholder="Example: margin: 0px 2px; border-radius: 5px;"><?php echo $wooWhatsAppObject->getOption('woo_wa_message'); ?></textarea>
+				<textarea  style="width: 500px;" rows="8" name="woo_wa_owner_message"><?php echo $wooWhatsAppObject->getOption('woo_wa_owner_message'); ?></textarea>
                 
                 <br><small>Message by owner Product</small>
+            </td>
+            </tr>
+			<tr valign="top">
+            <th scope="row">Message by Customer</th>
+            <td>
+				<textarea  style="width: 500px;" rows="8" name="woo_wa_customer_message" ><?php echo $wooWhatsAppObject->getOption('woo_wa_customer_message'); ?></textarea>
+                
+                <br><small>Message by customer</small>
             </td>
             </tr>
         </table>

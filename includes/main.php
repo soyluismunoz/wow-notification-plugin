@@ -16,15 +16,17 @@ class WooWhatsApp
      * @var string
      */
     public $default = [
+		'phone_number' => 'your phone number',
         'content' => 'Hello, I want to buy this product {{link}}',
         'button' => 'Chat via WhatsApp',
         'button_class' => 'single_add_to_cart_button button',
         'button_id' => 'whatsapp_button',
         'button_css' => '',
         'button_show_desktop' => 'yes',
-		'WB_TOKEN' => 'Your token of waboxapp',
-		'WB_FROM' => 'your acount phone number',
-		'MESSAGE' => 'Tienes un nuevo pedido',
+		'sid' => 'Your Account Sid',
+		'auth_token' => 'Your Account Sid',
+		'owner_message' => 'Tienes un nuevo pedido',
+		'twilio_phone_number' => 'Twilio phone number'
     ];
 
     /**
